@@ -61,6 +61,9 @@ void displayMainLayout() {
 }
 
 
+
+
+
 /*
     analisi tecnica : funzioni usate
 
@@ -74,7 +77,7 @@ void displayMainLayout() {
         numero navi predefinito
         dimensioni predefinite
         vuoi modificare
-        per orgni nave scegliere le dimensioni
+        per ogni nave scegliere le dimensioni
 
     controlloPosizionamentoNavi
 
