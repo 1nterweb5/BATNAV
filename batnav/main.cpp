@@ -2,6 +2,14 @@
 #include <conio.h>
 #include "curcolor.h"
 
+#define ESC 27
+#define ENTER 13
+#define BACKSPACE 8
+#define SU  72
+#define DX  77
+#define GIU  80
+#define SX 75
+
 using namespace std;
 
 const int MAIN_BG = 9;
@@ -10,66 +18,95 @@ const int INPUT_FG = 15;
 const int INFO_FG = 5;
 const int ERROR_FG = 4;
 
-int menu() {
-    cout << "================================================================================";
-    switch
-
-    cout << "================================================================================";
-
-
-}
-
-void stampaRighe() {
-    for (int i=0; i<10; i++) {
-        for (int j=0; j<30; j++) {
-            cout << "\t" << colonne << endl;
-            colonne ++;
-        }
-
-    }
-}
-
-void displayMainLayout() {
-    int righe [30] = {001, 002, 003} ;
-    char colonne = 'A';
+void menu () {
     clearScreen(MAIN_BG, MAIN_FG);
     setColor(MAIN_BG, MAIN_FG);
-    gotoXY(16,0);
-    // 16 = COLONNA DALLA QUALE PARTE LA LETTERA C -1
-    cout << "Battaglia Navale                    - Data: ";
+    cout << "	      BATTAGLIA NAVALE            Data : ";
     displayToday();
-    gotoXY(0,1);
-    cout << "================================================================================";
-    gotoXY(0,3);
-    cout << "  ";
-    for (int j=0; j<10; j++) {
-
-    }
-    /*for (int i=0; i<10; i++) {
-        for (int j=0; j<30; j++) {
-            cout << "\t" << colonne << endl;
-            colonne ++;
-        }
-    }
+    cout << endl << "===========================================================" << endl;
+    gotoXY(12,5);
+    cout << "Selezione opzione :";
+    gotoXY(14,7);
+    cout << "1. Inizia Gioco";
+    gotoXY(14,9);
+    cout << "2. Gestione Navi";
+    gotoXY(14,11);
+    cout << "3. Classifica";
+    gotoXY(14,13);
+    cout << "4. Esci";
+    gotoXY(0,17);
+    cout << "===========================================================" << endl;
+}
+    /*
+        int selezione;
+        do {
+            gotoXY(32,5);
+            cin >> selezione;
+        } while (selezione<0 || selezione>4);
     */
-    gotoXY(18,7);
-    cout << "1. Gestione navi: ";
-    gotoXY(19,10);
-    cout << ": ";
-    gotoXY(0,21);
-    cout << "================================================================================";
+
+int scelta(posizioneSceltaVecchia) {
+    int comando, posizioneSceltaNuova = posizioneSceltaVecchia;
+    comando = _getch();
+    do {
+        switch(comando) {
+            case SU :
+                if (posizioneSceltaVecchia == 7) {
+                        posizioneSceltaNuova = 13;
+                        menu(posizioneScelta);
+                } else {
+                    posizioneScelta = posizioneSceltaNuova + 2;
+                    menu(posizioneScelta);
+                }
+
+
+
+
+        }
+
+    } while(comando == ENTER);
+    switch (selezione) {
+        case 1 :
+            //iniziaGioco();
+            break;
+        case 2 :
+            //gestioneNavi();
+            break;
+        case 3 :
+            //classifica();
+            break;
+        case 4 :
+            //esci();
+            break;
+    }
+
+}
+
+void iniziaGioco() {
+
+}
+
+void gestioneNavi() {
+
+}
+
+classifica() {
+
 }
 
 
-
-
+esci() {
+    return 0;
+}
 
 /*
+    ⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬
+    ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
     analisi tecnica : funzioni usate
 
     menu
-        gestione navi
         inizio gioco
+        gestione navi
         classifica
         esci
 
@@ -77,16 +114,13 @@ void displayMainLayout() {
         numero navi predefinito
         dimensioni predefinite
         vuoi modificare
-        per ogni nave scegliere le dimensioni
+        per orgni nave scegliere le dimensioni
 
     controlloPosizionamentoNavi
-
-
-
 */
 
-int main()
-{
-    displayMainLayout();
+
+int main() {
+    menu();
     return 0;
 }
