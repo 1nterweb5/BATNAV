@@ -18,14 +18,44 @@ const int INPUT_FG = 15;
 const int INFO_FG = 5;
 const int ERROR_FG = 4;
 
+/*
+    int selezione;
+    do {
+        gotoXY(32,5);
+        cin >> selezione;
+    } while (selezione<0 || selezione>4);
+*/
+
+void scelta(int posizioneSceltaVecchia) {
+    int posizioneSceltaNuova = posizioneSceltaVecchia;
+    char comando;
+    int i = 7;
+    int z = 7;
+    do {
+        gotoXY(12,z);
+        cout << " ";
+        gotoXY(12,i);
+        cout << "x";
+        z = i;
+        comando = _getch();
+        if(comando == SU && i != 7) {
+            i -= 2;
+        }else if(comando == SU && i == 7) {
+            i = 13;
+        }
+        if(comando == GIU && i != 13) {
+            i += 2;
+        }else if(comando == GIU && i == 13){
+            i = 7;
+        }
+    }while (comando != ENTER && comando != ESC);
+}
 void menu (int posizioneScelta) {
     cout << "	      BATTAGLIA NAVALE            Data : ";
     displayToday();
     cout << endl << "===========================================================" << endl;
     gotoXY(12,5);
     cout << "Selezione opzione :";
-    gotoXY(12, posizioneScelta);
-    cout << "X" << endl;
     gotoXY(14,7);
     cout << "1. Inizia Gioco";
     gotoXY(14,9);
@@ -36,41 +66,7 @@ void menu (int posizioneScelta) {
     cout << "4. Esci";
     gotoXY(0,17);
     cout << "===========================================================" << endl;
-
-    int scelta(posizioneScelta);
-}
-    /*
-        int selezione;
-        do {
-            gotoXY(32,5);
-            cin >> selezione;
-        } while (selezione<0 || selezione>4);
-    */
-
-int scelta(int posizioneSceltaVecchia) {
-    int comando, posizioneSceltaNuova = posizioneSceltaVecchia;
-    comando = _getch();
-    do {
-        switch(comando) {
-            case SU :
-                if (posizioneSceltaVecchia == 7) {
-                    posizioneSceltaNuova = 13;
-                    menu(posizioneSceltaNuova);
-                } else {
-                    posizioneSceltaNuova = posizioneSceltaNuova + 2;
-                    menu(posizioneSceltaNuova);
-                }
-            case GIU :
-                if (posizioneSceltaVecchia == 13) {
-                    posizioneSceltaNuova = 7;
-                    menu(posizioneSceltaNuova);
-                } else {
-                    posizioneSceltaNuova = posizioneSceltaNuova - 2;
-                    menu(posizioneSceltaNuova);
-                }
-
-        }
-    }while (comando != ENTER);
+    scelta(posizioneScelta);
 }
 /*
     } while(comando == ENTER);
@@ -137,6 +133,6 @@ int main() {
     setColor(MAIN_BG, MAIN_FG);
     do {
         menu(posizioneIniziale);
-    }while(posizioneIniziale == 100);
+    } while(posizioneIniziale == 100);
     return 0;
 }
