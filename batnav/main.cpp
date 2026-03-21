@@ -18,42 +18,24 @@ const int INPUT_FG = 15;
 const int INFO_FG = 5;
 const int ERROR_FG = 4;
 
-/*
-    int selezione;
-    do {
-        gotoXY(32,5);
-        cin >> selezione;
-    } while (selezione<0 || selezione>4);
-*/
+void menu();
+void scelta();
+void iniziaGioco();
+void gestioneNavi();
+void classifica();
+void esci();
 
-void scelta(int posizioneSceltaVecchia) {
-    int posizioneSceltaNuova = posizioneSceltaVecchia;
-    char comando;
-    int i = 7;
-    int z = 7;
-    do {
-        gotoXY(12,z);
-        cout << " ";
-        gotoXY(12,i);
-        cout << "x";
-        z = i;
-        comando = _getch();
-        if(comando == SU && i != 7) {
-            i -= 2;
-        }else if(comando == SU && i == 7) {
-            i = 13;
-        }
-        if(comando == GIU && i != 13) {
-            i += 2;
-        }else if(comando == GIU && i == 13){
-            i = 7;
-        }
-    }while (comando != ENTER && comando != ESC);
+struct Giocatore {
+    char username[15];
+    scacchiera[]
+
+
 }
-void menu (int posizioneScelta) {
-    cout << "	      BATTAGLIA NAVALE            Data : ";
+
+void menu () {
+    cout << "	      BATTAGLIA NAVALE                Data : ";
     displayToday();
-    cout << endl << "===========================================================" << endl;
+    cout << endl << "===============================================================" << endl;
     gotoXY(12,5);
     cout << "Selezione opzione :";
     gotoXY(14,7);
@@ -65,74 +47,119 @@ void menu (int posizioneScelta) {
     gotoXY(14,13);
     cout << "4. Esci";
     gotoXY(0,17);
-    cout << "===========================================================" << endl;
-    scelta(posizioneScelta);
+    cout << "===============================================================" << endl;
+    scelta();
 }
-/*
-    } while(comando == ENTER);
-    switch (selezione) {
-        case 1 :
-            //iniziaGioco();
-            break;
-        case 2 :
-            //gestioneNavi();
-            break;
-        case 3 :
-            //classifica();
-            break;
-        case 4 :
-            //esci();
-            break;
-    }
 
+void scelta() {
+    int selezione, newPos = 7, oldPos = 7;
+    char comando;
+    do {
+        gotoXY(12,oldPos);
+        cout << " ";
+        gotoXY(12,newPos);
+        cout << ">";
+        oldPos = newPos;
+        comando = _getch();
+        if(comando == SU && newPos != 7) {
+            newPos -= 2;
+        }else if(comando == SU && newPos == 7) {
+            newPos = 13;
+        }
+        if(comando == GIU && newPos != 13) {
+            newPos += 2;
+        }else if(comando == GIU && newPos == 13){
+            newPos = 7;
+        }
+        if (comando == ENTER) {
+             selezione = newPos;
+             switch (selezione) {
+                  case 7 :
+                      clearScreen(MAIN_BG, MAIN_FG);
+                      setColor(MAIN_BG, MAIN_FG);
+                      iniziaGioco();
+                      break;
+                  case 9 :
+                      gestioneNavi();
+                      break;
+                  case 11 :
+                      classifica();
+                      break;
+                  case 13 :
+                      esci();
+                      break;
+              }
+        }
+    }while (comando != ENTER && comando != ESC);
+}
+
+void scacchiere () {
+    cout << "	      BATTAGLIA NAVALE                Data : ";
+    displayToday();
+    gotoXY(0,1);
+    cout << "===============================================================" << endl;
+    gotoXY(0,2);
+    cout << R"(
+    0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3
+    1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+
+A   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+B   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+C   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+D   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+E   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+F   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+G   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+H   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+I   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+J   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+)";
+    gotoXY(0,17);
+    cout << "===============================================================" << endl;
+
+}
+
+void posizioneNavi () {
 
 }
 
 void iniziaGioco() {
 
+    scacchiere ();
 }
 
 void gestioneNavi() {
 
 }
 
-classifica() {
+void classifica() {
 
 }
 
 
-esci() {
-    return 0;
+void esci() {
+
 }
-*/
+
 
 /*
-    ⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬
-    ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
     analisi tecnica : funzioni usate
-
-    menu
-        inizio gioco
-        gestione navi
-        classifica
-        esci
 
     gestione navi
         numero navi predefinito
         dimensioni predefinite
         vuoi modificare
-        per orgni nave scegliere le dimensioni
+        per ogni nave scegliere le dimensioni
 
     controlloPosizionamentoNavi
 */
 
 
 int main() {
-    int posizioneIniziale = 7;
     clearScreen(MAIN_BG, MAIN_FG);
     setColor(MAIN_BG, MAIN_FG);
     do {
-        menu(posizioneIniziale);
-    } while(posizioneIniziale == 100);
+        menu();
+    } while(3 == 100);
     return 0;
 }
