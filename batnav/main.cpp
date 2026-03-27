@@ -19,12 +19,19 @@ const int INPUT_FG = 15;
 const int INFO_FG = 5;
 const int ERROR_FG = 4;
 
+struct Giocatore {
+    char nome[15];
+    char scacchiera[30][10] = {'O'};
+    int vittorie;
+};
+
 void menu();
-void scelta();
-void iniziaGioco();
-void gestioneNavi();
+void scelta(int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi);
+void iniziaGioco(int naviDa6 ,int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi, Giocatore ordinePlayer);
+void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, int sommaNavi);
 void classifica();
 void esci();
+void posizionamentoNavi(int naveN);
 
 /*
 struct Giocatore {
@@ -35,6 +42,7 @@ struct Giocatore {
 */
 
 void menu () {
+    int naviDa6 = 1, naviDa5 = 2, naviDa4 = 2, naviDa3 = 3, naviDa2 = 3, totNavi = 39;
     cout << "	      BATTAGLIA NAVALE                Data : ";
     displayToday();
     cout << endl << "===============================================================" << endl;
@@ -50,11 +58,13 @@ void menu () {
     cout << "4. Esci";
     gotoXY(0,17);
     cout << "===============================================================" << endl;
-    scelta();
+    scelta(naviDa6, naviDa5, naviDa4, naviDa3, naviDa2, totNavi);
 }
 
-void scelta() {
+void scelta(int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi) {
     int selezione, newPos = 7, oldPos = 7;
+    Giocatore player1, player2;
+
     char comando;
     do {
         gotoXY(12,oldPos);
@@ -79,12 +89,12 @@ void scelta() {
                   case 7 :
                       clearScreen(MAIN_BG, MAIN_FG);
                       setColor(MAIN_BG, MAIN_FG);
-                      iniziaGioco();
+                      iniziaGioco(naviDa6, naviDa5, naviDa4, naviDa3, naviDa2, totNavi, player1);
                       break;
                   case 9 :
                       clearScreen(MAIN_BG, MAIN_FG);
                       setColor(MAIN_BG, MAIN_FG);
-                      gestioneNavi();
+                      gestioneNavi(naviDa6, naviDa5, naviDa4, naviDa3, naviDa2, totNavi);
                       break;
                   case 11 :
                       clearScreen(MAIN_BG, MAIN_FG);
@@ -125,17 +135,67 @@ J   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
 
 }
 
-void posizioneNavi () {
+void posizionamentoNavi (int naveN) {
+    displayMessage(char nave[naveN],)
 
 }
 
-void iniziaGioco() {
+void iniziaGioco(int naviDa6 ,int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi, Giocatore ordinePlayer) {
+    int selezione, newPos = 6, oldPos = 6;
+    char comando;
 
-    scacchiere ();
+    for(int i = 0; i < 30; i++) {
+        for(int j = 0; j < 10; j++) {
+            ordinePlayer.scacchiera[i][j] = 'O';
+        }
+    }
+    scacchiere();
+    gotoXY(66,3);
+    cout << "Inserire navi:";
+    gotoXY(66,6);
+    cout << "Navi da 6:  " << naviDa6;
+    gotoXY(66,8);
+    cout << "Navi da 5:  " << naviDa5;
+    gotoXY(66,10);
+    cout << "Navi da 4:  " << naviDa4;
+    gotoXY(66,12);
+    cout << "Navi da 3:  " << naviDa4;
+    gotoXY(66,14);
+    cout << "Navi da 2:  " << naviDa2;
+
+    do {
+        gotoXY(65,oldPos);
+        cout << " ";
+        gotoXY(65,newPos);
+        cout << ">";
+        oldPos = newPos;
+        oldPos = newPos;
+        comando = _getch();
+        if(comando == SU && newPos != 6) {
+            newPos -= 2;
+        }else if(comando == SU && newPos == 6) {
+            newPos = 14;
+        }
+        if(comando == GIU && newPos != 14) {
+            newPos += 2;
+        }else if(comando == GIU && newPos == 14){
+            newPos = 6;
+        }
+        if(comando == ENTER) {
+                switch:
+                    case 6:
+                        posizionamentoNavi(6);
+                        break;
+
+
+        }
+    }while (totNavi != 0);
+
+
+
 }
 
-void gestioneNavi() {
-    int nNavi6 = 1, nNavi5 = 2, nNavi4 = 2, nNavi3 = 3, nNavi2 = 3, sommaNavi = 39;
+void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, int sommaNavi) {
     int selezione, newPosX = 30, oldPosX = 30, newPosY = 6, oldPosY = 6;
     char comando;
 
