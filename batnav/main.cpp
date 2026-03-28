@@ -5,6 +5,7 @@
 #define ESC 27
 #define ENTER 13
 #define BACKSPACE 8
+#define SPACE 32
 #define SU  72
 #define DX  77
 #define GIU  80
@@ -25,24 +26,15 @@ struct Giocatore {
     int vittorie;
 };
 
-void menu();
+void menu(int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi);
 void scelta(int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi);
 void iniziaGioco(int naviDa6 ,int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi, Giocatore ordinePlayer);
 void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, int sommaNavi);
 void classifica();
 void esci();
-void posizionamentoNavi(int naveN);
+void posizionamentoNavi(int nave);
 
-/*
-struct Giocatore {
-    char username[15];
-    scacchiera[]
-
-}
-*/
-
-void menu () {
-    int naviDa6 = 1, naviDa5 = 2, naviDa4 = 2, naviDa3 = 3, naviDa2 = 3, totNavi = 39;
+void menu (int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi) {
     cout << "	      BATTAGLIA NAVALE                Data : ";
     displayToday();
     cout << endl << "===============================================================" << endl;
@@ -135,8 +127,31 @@ J   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
 
 }
 
-void posizionamentoNavi (int naveN) {
-    displayMessage(char nave[naveN],)
+void posizionamentoNavi (int nave) {
+    char comando;
+    int rotazione = 0;
+    setColor(INFO_FG, MAIN_FG);
+
+    nave = nave * 2;
+    for (int i = 0; i < nave; i++) {
+            int x = 4, y = 6;
+            gotoXY(x, y);
+            cout << 'O';
+            x++;
+            cout << ' ';
+            x++;
+    }
+    do {
+        comando = _getch();
+        if (comando == SPACE) {
+            if (rotazione == 0) {
+              rotazione++;
+            }
+        }else{
+              rotazione--;
+        }
+
+    }while(nave != 0);
 
 }
 
@@ -182,11 +197,12 @@ void iniziaGioco(int naviDa6 ,int naviDa5, int naviDa4, int naviDa3, int naviDa2
             newPos = 6;
         }
         if(comando == ENTER) {
-                switch:
+                selezione = newPos;
+                switch (selezione) {
                     case 6:
                         posizionamentoNavi(6);
                         break;
-
+                }
 
         }
     }while (totNavi != 0);
@@ -372,7 +388,12 @@ void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, in
 
             }
         }
-        }while (comando != ESC);
+        if (comando == ESC) {
+            clearScreen(MAIN_BG, MAIN_FG);
+            setColor(MAIN_BG, MAIN_FG);
+            menu(nNavi6, nNavi5, nNavi4, nNavi3, nNavi2, sommaNavi);
+        }
+    }while (comando != ESC || comando != ENTER);
 
 
 
@@ -402,10 +423,11 @@ void esci() {
 
 
 int main() {
+    int naviDa6 = 1, naviDa5 = 2, naviDa4 = 2, naviDa3 = 3, naviDa2 = 3, totNavi = 39;
     clearScreen(MAIN_BG, MAIN_FG);
     setColor(MAIN_BG, MAIN_FG);
     do {
-        menu();
+        menu(naviDa6, naviDa5, naviDa4, naviDa3, naviDa2, totNavi);
     } while(3 == 100);
     return 0;
 }
