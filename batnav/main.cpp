@@ -33,6 +33,7 @@ void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, in
 void classifica();
 void esci();
 void posizionamentoNavi(int nave);
+void stampoNavi(int nave, int rotazione, int x, int y);
 
 void menu (int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi) {
     cout << "	      BATTAGLIA NAVALE                Data : ";
@@ -127,28 +128,108 @@ J   O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
 
 }
 
-void posizionamentoNavi (int nave) {
-    char comando;
-    int rotazione = 0;
-    setColor(INFO_FG, MAIN_FG);
-
-    nave = nave * 2;
-    for (int i = 0; i < nave; i++) {
-            int x = 4, y = 6;
+void stampoNavi (int nave, int rotazione, int x, int y) {
+    if (rotazione == 0) {
+        for (int i = 0; i < nave; i++) {
             gotoXY(x, y);
             cout << 'O';
             x++;
             cout << ' ';
             x++;
+        }
+    }else if (rotazione == 1) {
+        for (int i = 0; i < nave; i++) {
+            gotoXY(x, y);
+            cout << 'O';
+            y++;
+        }
     }
+
+
+}
+
+void posizionamentoNavi (int nave) {
+    char comando;
+    int rotazione = 0;
+    int x = 4, y = 6;
+    setColor(INFO_FG, MAIN_FG);
+
+    stampoNavi(nave, rotazione, x, y);
+
     do {
         comando = _getch();
-        if (comando == SPACE) {
-            if (rotazione == 0) {
-              rotazione++;
+        if (comando == SX) {
+            if (x != 4) {
+                setColor(MAIN_BG, MAIN_FG);
+                stampoNavi(nave, rotazione, x, y);
+                x-=2;
+                setColor(INFO_FG, MAIN_FG);
+                stampoNavi(nave, rotazione, x, y);
             }
-        }else{
+        }
+        if (comando == DX) {
+            if (rotazione == 0) {
+                if (x != 52) {
+                    setColor(MAIN_BG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                    x+=2;
+                    setColor(INFO_FG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                }
+            }else if (rotazione == 1) {
+                if (x != 62) {
+                    setColor(MAIN_BG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                    x+=2;
+                    setColor(INFO_FG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                }
+            }
+        }
+        if (comando == GIU) {
+            if (rotazione == 0) {
+                if (y != 15) {
+                    setColor(MAIN_BG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                    y++;
+                    setColor(INFO_FG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                }
+            }else if (rotazione == 1) {
+                if (y != 10) {
+                    setColor(MAIN_BG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                    y++;
+                    setColor(INFO_FG, MAIN_FG);
+                    stampoNavi(nave, rotazione, x, y);
+                }
+            }
+
+        }
+        if (comando == SU) {
+            if (y != 6) {
+                setColor(MAIN_BG, MAIN_FG);
+                stampoNavi(nave, rotazione, x, y);
+                y--;
+                setColor(INFO_FG, MAIN_FG);
+                stampoNavi(nave, rotazione, x, y);
+            }
+        }
+        if (comando == SPACE) {
+            if (rotazione == 0 && y < 11) {
+              setColor(MAIN_BG, MAIN_FG);
+              stampoNavi(nave, rotazione, x, y);
+              rotazione++;
+              setColor(INFO_FG, MAIN_FG);
+              stampoNavi(nave, rotazione, x, y);
+
+            }else if (rotazione == 1 && x < 54) {
+              setColor(MAIN_BG, MAIN_FG);
+              stampoNavi(nave, rotazione, x, y);
               rotazione--;
+              setColor(INFO_FG, MAIN_FG);
+              stampoNavi(nave, rotazione, x, y);
+            }
         }
 
     }while(nave != 0);
