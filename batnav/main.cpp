@@ -84,7 +84,7 @@ int main()
 
 void menu(int naviDa6, int naviDa5, int naviDa4, int naviDa3, int naviDa2, int totNavi, Record storicoVincitori[], int &quantiVinti)
 {
-    cout << "	      BATTAGLIA NAVALE                Data : ";
+    cout << "	          BATTAGLIA NAVALE            Data : ";
     displayToday();
     cout << endl << "===============================================================" << endl;
     gotoXY(12,5);
@@ -173,7 +173,7 @@ void gestioneNavi(int nNavi6, int nNavi5, int nNavi4, int nNavi3, int nNavi2, in
     int selezione, newPosX = 30, oldPosX = 30, newPosY = 6, oldPosY = 6;
     char comando;
 
-    cout << "	      BATTAGLIA NAVALE                Data : ";
+    cout << "	          BATTAGLIA NAVALE            Data : ";
     displayToday();
     gotoXY(0,1);
     cout << "===============================================================" << endl;
@@ -447,7 +447,7 @@ void esci()
 
 void scacchiere ()
 {
-    cout << "	      BATTAGLIA NAVALE                Data : ";
+    cout << "	                                      Data : ";
     displayToday();
     gotoXY(0,1);
     cout << "===============================================================" << endl;
